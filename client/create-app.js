@@ -10,16 +10,20 @@ import createStore from './store/store'
 Vue.use(Router)
 Vue.use(Vuex)
 
-const router = createRouter()
-const store = createStore()
 
 // router.beforeEach((to, from, next)=>{
 // 	console.log('enter')
 // 	next()
 // })
-new Vue({
-	el: '#root',
-	router,
-	store,
-  render: (h) => h(App)
-})
+export default ()=>{
+	const router = createRouter()
+	const store = createStore()
+
+	const app = new Vue({
+		router,
+		store,
+		render: (h) => h(App)
+	})
+	
+	return {router, store, app}
+}

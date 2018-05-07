@@ -5,7 +5,6 @@
     <p>{{fullName}} {{count}}</p>
     <router-link to="/app">app</router-link>
     <router-link to="/login">login</router-link>
-    <!-- <todo></todo> -->
     <transition name="fade">
       <router-view/>
     </transition>
@@ -16,24 +15,32 @@
 <script>
 import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
-// import Todo from './views/todo/todo.vue'
-import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 
 export default {
+  data(){
+    return {
+    }
+  },
   components: {
     Header,
     Footer,
-    // Todo,
   },
   mounted(){
     let i = 0
     console.log(this.$store)
     setTimeout(()=>{
-      this.$store.commit('updateName', 'wang')
+      this.updateName('wang')
     },3000)
-    setInterval(()=>{
-      this.$store.commit('updateCount', ++i)
-    },1000)
+    // this.updateCount(55)
+    // setInterval(()=>{
+    //   this.$store.commit('updateCount', ++i)
+    // },1000)
+    // this.updateCountAsync(5000)
+  },
+  methods: {
+    ...mapActions(['updateCountAsync']),
+    ...mapMutations(['updateName','updateCount'])
   },
   computed: {
     ...mapState(['count']),
