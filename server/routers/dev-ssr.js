@@ -15,6 +15,7 @@ const mfs = new MemoryFs()
 serverCompiler.outputFileSystem = mfs
 
 let bundle
+//node开启webpack打包
 serverCompiler.watch({}, (err, stats)=>{
 	//打包错误
 	if(err){
@@ -38,19 +39,21 @@ const handleSSR = async (ctx)=>{
 		return
 	}
 	//为返回给客户端添加html  和前端路由交互的js
-	const clientManifestResp = await axios.get('http://127.0.0.1:8000/public/vue-ssr-clent-manifest.json')
-	const clientManifest = createBundleRenderer.data
+	const clientManifestResp = await axios.get('http://127.0.0.1:8000/public/vue-ssr-client-manifest.json')
+	const clientManifest = clientManifestResp.data
 
+	//读取template模板
 	const template = fs.readFileSync(path.join(__dirname, '../server.template.ejs'), 'utf-8')
 
 	const renderer = VueServerRenderer.createBundleRenderer(bundle, {
 											inject: false,
 											clientManifest
 										})
-
+	
 	await serverRender(ctx, renderer, template)
 }
 
+//koa-router路由匹配
 const router = new Router()
 router.get('*', handleSSR)
 

@@ -25,6 +25,9 @@ const devServer = {
   overlay: {
     errors: true,
   },
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  },
   historyApiFallback: {
     index: '/public/index.html'
   },//history模式手动刷新url会发送请求，出现错误

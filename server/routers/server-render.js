@@ -2,11 +2,12 @@
 const ejs = require('ejs')
 module.exports = async (ctx, renderer, template) => {
 	ctx.headers['Content-Type'] = 'text/html'
-
+	
 	const context = {url: ctx.path}
-
 	try{
+		console.log('---------------------------------before render')
 		const appString = await renderer.renderToString(context)
+console.log('---------------------------------after render')
 
 		const html = ejs.render(template, {
 			appString,

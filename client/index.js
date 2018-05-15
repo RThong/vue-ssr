@@ -7,8 +7,13 @@ import './assets/styles/global.styl'
 import createRouter from './config/router'
 import createStore from './store/store'
 
+import Toast from './components/toast'
+import Notification from './components/notification'
+
 Vue.use(Router)
 Vue.use(Vuex)
+Vue.use(Toast)
+Vue.use(Notification)
 
 const router = createRouter()
 const store = createStore()

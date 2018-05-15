@@ -2,12 +2,15 @@
   <div id="app">
     <div id="cover"></div>
     <Header></Header>
+    <button @click="notice()">click me</button>
     <p>{{fullName}} {{count}}</p>
     <router-link to="/app">app</router-link>
     <router-link to="/login">login</router-link>
     <transition name="fade">
       <router-view/>
     </transition>
+    <!-- <toast></toast> -->
+    <!-- <notification></notification> -->
     <Footer></Footer>
   </div>
 </template>
@@ -27,6 +30,7 @@ export default {
     Footer,
   },
   mounted(){
+
     let i = 0
     console.log(this.$store)
     setTimeout(()=>{
@@ -40,7 +44,19 @@ export default {
   },
   methods: {
     ...mapActions(['updateCountAsync']),
-    ...mapMutations(['updateName','updateCount'])
+    ...mapMutations(['updateName','updateCount']),
+    // toast(){
+    //   this.$toast('nihao',{
+    //     status: 'caution',
+    //     closeTime: 1000
+    //   })
+    // }
+    notice(){
+      this.$notice('nihao',{
+        btn: 'close',
+        // closeTime: 5000
+      })
+    }
   },
   computed: {
     ...mapState(['count']),

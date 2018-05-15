@@ -10,7 +10,6 @@ import createStore from './store/store'
 Vue.use(Router)
 Vue.use(Vuex)
 
-
 // router.beforeEach((to, from, next)=>{
 // 	console.log('enter')
 // 	next()
