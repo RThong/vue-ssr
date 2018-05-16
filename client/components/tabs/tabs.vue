@@ -1,6 +1,8 @@
 <script>
+	import TabContainer from './tab-container.vue'
 //tabs与tab是父子组件关系,点击事件先通过tab获取tab的index,然后通过$parent.onChange来执行tabs的
 //emit,触发todo的change事件,todo的change事件来修改tabs的value    tab-->tabs-->todo
+//通过tab-container传入props来监听tab内容插槽的状态变化
 export default {
 	name: 'Tabs',
 	props: {
@@ -8,6 +10,14 @@ export default {
 		value: {
 			type: [Number, String],
 			required: true
+		}		
+	},
+	components:{
+		TabContainer
+	},
+	data(){
+		return {
+			panes: []
 		}
 	},
 	methods: {
@@ -21,6 +31,7 @@ export default {
 				<ul class="tabs-header">
 					{this.$slots.default}
 				</ul>
+				<tab-container panes={this.panes}></tab-container>	
 			</div>
 		)
 	}

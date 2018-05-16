@@ -16,6 +16,9 @@ export default {
 			return this.index === this.$parent.value
 		}
 	},
+	mounted(){
+		this.$parent.panes.push(this)
+	},
 	methods:{
 		handleClick(){
 			this.$parent.onChange(this.index)
