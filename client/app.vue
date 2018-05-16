@@ -6,6 +6,16 @@
     <p>{{fullName}} {{count}}</p>
     <router-link to="/app">app</router-link>
     <router-link to="/login">login</router-link>
+    <!-- 使用tabs -->
+    
+    <!-- 希望编译后的html -->
+   <!--  <ul>
+      <li>label1</li>
+      <li>label2</li>
+    </ul>
+    <div class="tab-container">
+      <p>this is tab content</p>
+    </div> -->
     <transition name="fade">
       <router-view/>
     </transition>

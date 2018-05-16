@@ -10,13 +10,21 @@ const NotificationConstructor = Vue.extend({
 		}
 	},
 	mounted(){
-		this.timer = setTimeout(() => {
-			this.visible = false
-		}, this.closeTime)
+		this.createTimer()
 	},
 	computed: {
 		bottom(){
 			return `bottom:${this.verticalHeight}px`
+		}
+	},
+	methods: {
+		createTimer(){
+			this.timer = setTimeout(() => {
+				this.visible = false
+			}, this.closeTime)
+		},
+		clearTimer(){
+			clearTimeout(this.timer)
 		}
 	}
 })
@@ -24,6 +32,7 @@ const NotificationConstructor = Vue.extend({
 let instanceList = []
 let verticalHeight = 16
 let id = 0
+
 
 const init = (content, config) => {
 	const instance = new NotificationConstructor({
@@ -39,23 +48,27 @@ const init = (content, config) => {
 	}).$mount()
 	document.body.appendChild(instance.$el)
 
-	instance.$on('close', function(){
+	instance
+	.$on('close', function(){
 		this.visible = false
 	})
+	.$on('closed', function(){
+		let targetIndex, targetHeight
+		instanceList.map((item, index) => {
+			console.log(item)
+			if(item.id === this.id){
+				targetIndex = index
+				targetHeight = item.verticalHeight
+				instanceList.splice(index, 1)
+			}
+		})
 
-	instance.$on('closed', function(){
+		for(let i = targetIndex;i < instanceList.length;i++){
+			instanceList[i].verticalHeight -= 76
+		}
+		clearTimeout(this.timer)
 		document.body.removeChild(this.$el)
 		this.$destroy()
-		instanceList.map((item, index) => {
-			if(item.id === this.id)
-				for(let i= 0;i<instanceList.length-index;i++){
-					let tem = instanceList[index+i+1].verticalHeight
-					instanceList[index+i+1].verticalHeight = instanceList[index+i].verticalHeight
-				}
-				
-				instanceList.splice(index, 1)
-		})
-		clearTimeout(this.timer)
 	})
 
 	instance.id = id++

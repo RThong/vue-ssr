@@ -9,11 +9,13 @@ import createStore from './store/store'
 
 import Toast from './components/toast'
 import Notification from './components/notification'
+import Tabs from './components/tabs'
 
 Vue.use(Router)
 Vue.use(Vuex)
 Vue.use(Toast)
 Vue.use(Notification)
+Vue.use(Tabs)
 
 const router = createRouter()
 const store = createStore()

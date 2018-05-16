@@ -4,9 +4,11 @@
       class="notification"
       :style="bottom"
       v-show="visible"
+      @mouseenter="clearTimer()"
+      @mouseleave="createTimer()"
     >
       <span class="content">{{content}}</span>
-      <a class="btn" @click="handleClose">{{btn}}</a>
+      <a class="btn" @click="handleClose()">{{btn}}</a>
     </div>
   </transition>
 </template>
@@ -41,7 +43,9 @@ export default {
     },
     afterLeave(){
       this.$emit('closed')
-    }
+    },
+    clearTimer(){},//防止直接使用组件报错
+    createTimer(){}
   }
 }
 </script>
